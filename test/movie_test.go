@@ -589,7 +589,7 @@ func TestAll(t *testing.T) {
 					t.Errorf("%s[%v]: Expected %v groups, got %v", name, i, len(exp), len(got))
 					break
 				}
-				for k, _ := range got {
+				for k := range got {
 					got2 := got[k]
 					exp2 := exp[k]
 					if len(got2) != len(exp2) {
@@ -613,7 +613,7 @@ func TestAll(t *testing.T) {
 					t.Errorf("%s[%v]: Expected %v groups, got %v", name, i, len(exp), len(got))
 					break
 				}
-				for k, _ := range got {
+				for k := range got {
 					got2 := got[k]
 					exp2 := exp[k]
 					if len(got2) != len(exp2) {

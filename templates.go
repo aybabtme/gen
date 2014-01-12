@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"sort"
 	"text/template"
@@ -55,7 +54,7 @@ func getStandardTemplate(name string) (result *template.Template, err error) {
 	if found {
 		result = template.Must(template.New(name).Parse(t))
 	} else {
-		err = errors.New(fmt.Sprintf("%s is not a known method", name))
+		err = fmt.Errorf("%s is not a known method", name)
 	}
 	return
 }
@@ -461,7 +460,7 @@ func getProjectionTemplate(name string) (result *template.Template, err error) {
 	if found {
 		result = template.Must(template.New(name).Parse(t.template))
 	} else {
-		err = errors.New(fmt.Sprintf("%s is not a known projection method", name))
+		err = fmt.Errorf("%s is not a known projection method", name)
 	}
 	return
 }

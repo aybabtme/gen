@@ -3,7 +3,6 @@ package main
 import (
 	_ "code.google.com/p/go.tools/go/gcimporter"
 	"code.google.com/p/go.tools/go/types"
-	"errors"
 	"fmt"
 	"go/ast"
 	"go/doc"
@@ -28,7 +27,7 @@ func (p *Package) GetType(t *typeArg) (result *Type, errs []error) {
 	doc, found := p.TypeNamesAndDocs[t.Name]
 
 	if !found {
-		errs = append(errs, errors.New(fmt.Sprintf("%s is not a known type in the current directory", t)))
+		errs = append(errs, fmt.Errorf("%s is not a known type in the current directory", t))
 	}
 
 	var subsettedMethods []string
@@ -38,7 +37,7 @@ func (p *Package) GetType(t *typeArg) (result *Type, errs []error) {
 		subsettedMethods = strings.Split(genMatch[1], ",")
 		d := findDuplicates(subsettedMethods)
 		if len(d) > 0 {
-			errs = append(errs, errors.New(fmt.Sprintf("duplicate subsetted method(s) found on type %s: %v", t, d)))
+			errs = append(errs, fmt.Errorf("duplicate subsetted method(s) found on type %s: %v", t, d))
 		}
 	}
 
@@ -49,7 +48,7 @@ func (p *Package) GetType(t *typeArg) (result *Type, errs []error) {
 		projectedTypes = strings.Split(projectMatch[1], ",")
 		d := findDuplicates(projectedTypes)
 		if len(d) > 0 {
-			errs = append(errs, errors.New(fmt.Sprintf("duplicate projected type(s) found on type %s: %v", t, d)))
+			errs = append(errs, fmt.Errorf("duplicate projected type(s) found on type %s: %v", t, d))
 		}
 	}
 
